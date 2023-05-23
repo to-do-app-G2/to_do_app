@@ -1,6 +1,9 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Flowbite } from 'flowbite-react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import "react-toastify/dist/ReactToastify.min.css";
+// import { toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 export default function Home() {
@@ -35,7 +38,6 @@ const [priorityy, setpriorityy] = useState('');
     
       const handleSubmit = (event) => {
         event.preventDefault();
-
         axios.post("http://localhost:8080/create", {    
             
                 title:title,
@@ -47,8 +49,11 @@ const [priorityy, setpriorityy] = useState('');
               })
               .then((response) => {
                 
-              });
+                fetchData()
+                toast.success(`${title} is added!`);
 
+              });
+            
         // Perform your save logic here
         // e.g., call an API to save the data
         // Close the pop-up
@@ -119,9 +124,10 @@ const [priorityy, setpriorityy] = useState('');
                 <option value="medium">Medium</option>
                 <option value="low">Low</option>
               </select>
-              <button type="submit">Save</button>
+              <button class="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit">Save</button>
+             
             </form>
-            <button onClick={() => setIsOpen(false)}>Close</button>
+            <button class="bg-red-700 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={() => setIsOpen(false)}>Close</button>
           </div>
         </div>
       )}
@@ -181,7 +187,7 @@ const [priorityy, setpriorityy] = useState('');
                 </div>
       ))}
 
-        <p className="mt-3 text-grey-dark">Add a card...</p>
+        
       </div>
     </div>
 
@@ -207,7 +213,6 @@ const [priorityy, setpriorityy] = useState('');
                 </div>
       ))}
 <div className='flex'>
-<p className="mt-3 text-grey-dark">Add a card...</p>
 </div>
         
       </div>
@@ -217,8 +222,8 @@ const [priorityy, setpriorityy] = useState('');
 
 
   </div>
-  </>
-  
+  < ToastContainer/>
+</>
   )
 }
 
