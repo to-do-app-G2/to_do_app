@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { firestore } from "./firebase";
+import "react-toastify/dist/ReactToastify.min.css";
+// import { toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -18,8 +21,8 @@ const Signup = () => {
       });
 
       // Perform any additional actions or show success message
-      alert("User signed up successfully");
-      window.location.href = '/';
+      toast.success(`${email}: signed up successfully`);
+      //window.location.href = '/';
     } catch (error) {
       console.log(error);
     }
@@ -141,6 +144,7 @@ const Signup = () => {
         </form>
       </div>
     </div>
+    < ToastContainer/>
   </div>
   );
 };

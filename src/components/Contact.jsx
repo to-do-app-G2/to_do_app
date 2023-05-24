@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
 import imgBg from "../images/homem-preenchendo-checklist.jpg";
 export default function Contact() {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_mud7bk8",
+        "template_d6rfmoh",
+        form.current,
+        "sNeYuVtIoMxGMfqEY"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <div className="contact-container">
       <div className="container-fluid p-8">
         <section className="mb-32  text-gray-800">
           <div className="max-w-[1200px] mx-auto px-3 lg:px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
-              <form className="border-solid border-2 border-violet-100 p-8 rounded-lg shadow-xl bg-white">
+              <form
+                className="border-solid border-2 border-violet-100 p-8 rounded-lg shadow-xl bg-white"
+                ref={form}
+                onSubmit={sendEmail}
+              >
                 <div className="form-group mb-6">
                   <input
                     type="text"
@@ -27,6 +53,7 @@ export default function Contact() {
                       focus:text-gray-700 focus:bg-white focus:border-violet-600 focus:outline-none"
                     id="exampleInput7"
                     placeholder="Name"
+                    name="user_name"
                   />
                 </div>
                 <div className="form-group mb-6">
@@ -48,6 +75,7 @@ export default function Contact() {
                       focus:text-gray-700 focus:bg-white focus:border-violet-600 focus:outline-none"
                     id="exampleInput8"
                     placeholder="Email address"
+                    name="user_email"
                   />
                 </div>
                 <div className="form-group mb-6">
@@ -72,6 +100,7 @@ export default function Contact() {
                     id="exampleFormControlTextarea13"
                     rows="3"
                     placeholder="Message"
+                    name="message"
                   ></textarea>
                 </div>
                 <div className="form-group form-check text-center mb-6">

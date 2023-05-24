@@ -116,7 +116,6 @@ var credentials = require("./key.json");
 admin.initializeApp({
   credential: admin.credential.cert(credentials)
 });
-
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
@@ -145,7 +144,7 @@ app.get('/read/all',async (req,res)=>{
         const response = await cardsRef.get();
         let responseArr = [];
         response.forEach(doc =>{
-            responseArr.push(doc.data());
+            responseArr.push({id: doc.id, ...doc.data()});
         });
         res.send(responseArr);
     }catch(error){
